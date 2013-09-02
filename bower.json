@@ -1,0 +1,17 @@
+{
+  "name": "ng-highcharts",
+  "version": "0.0.1",
+  "main": "src/directives/ng-highcharts.js",
+  "dependencies": {
+      "angular": "~1.0.7",
+      "highcharts" :"*",
+      "jquery":"~1.7"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
