@@ -33,7 +33,6 @@ function DemoCtrl($scope) {
         try {
             $scope.chartData1 = angular.fromJson($scope.chart1Json);
         } catch (e) {
-            console.log(e.message);
             $scope.parseError = e.message;
         }
     }
