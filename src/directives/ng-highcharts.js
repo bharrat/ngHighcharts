@@ -2,6 +2,7 @@
 
 angular.module('ngHighcharts',[])
     .directive('highchart', function () {
+        //any default options can be configured here
         var defaultChartOptions = {
 
         };
