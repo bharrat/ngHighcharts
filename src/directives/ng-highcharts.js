@@ -5,6 +5,21 @@ angular.module('ngHighcharts',[])
         var defaultChartOptions = {
 
         };
+        var buildChartOptions = function(userOptions, element, attrs) {
+            var chartOpts = angular.extend({}, defaultChartOptions);
+            if (typeof chartOpts.chart == "undefined") {
+                chartOpts.chart = {};
+            }
+            if (attrs.height && !isNaN(attrs.height)) {
+                chartOpts.chart.height = attrs.height;
+            }
+            if (attrs.width && !isNaN(attrs.width)) {
+                chartOpts.chart.width = attrs.width;
+            }
+            chartOpts = angular.extend(chartOpts, userOptions);
+            chartOpts.chart['renderTo'] = element[0];
+            return chartOpts;
+        };
         return {
             restrict: 'EA',
             template: '<div class="high-chart"></div>',
@@ -12,14 +27,10 @@ angular.module('ngHighcharts',[])
                 chartOptions: "=options"
             },
             replace: true,
-            link: function (scope, element) {
-                scope.$watch('chartOptions', function() {
-                    var opts = angular.extend({}, defaultChartOptions, scope.chartOptions);
-                    if (typeof opts.chart == "undefined") {
-                        opts.chart = {};
-                    }
-                    opts.chart['renderTo'] = element[0];
-                    var chart = new Highcharts.Chart(opts);
+            link: function (scope, element, attrs) {
+
+                scope.$watch('chartOptions', function(newVal) {
+                    var chart = new Highcharts.Chart(buildChartOptions(newVal, element, attrs));
                 });
             }
         };

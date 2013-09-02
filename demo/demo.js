@@ -5,7 +5,8 @@ angular.module('chartDemo', ['ngHighcharts']).
 
 function DemoCtrl($scope) {
     $scope.title = "Directive Demo";
-    $scope.chartData = {
+    $scope.parseError = "";
+    var chartData = {
         series: [{
             type: 'pie',
             name: 'Browser share',
@@ -23,5 +24,18 @@ function DemoCtrl($scope) {
                 ['Others',   0.7]
             ]
         }]
+    };
+
+    $scope.chart1Json = angular.toJson(chartData, true);
+    $scope.chartData1 = chartData;
+    $scope.updateChart = function() {
+        $scope.parseError = "";
+        try {
+            $scope.chartData1 = angular.fromJson($scope.chart1Json);
+        } catch (e) {
+            console.log(e.message);
+            $scope.parseError = e.message;
+        }
     }
+
 }
